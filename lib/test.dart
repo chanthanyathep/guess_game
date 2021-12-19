@@ -1,29 +1,40 @@
 import 'dart:io';
 import 'dart:math';
 
-void main(){
-  print('╔══════════════════════════════════════════════');
-  print('║              GUESS THE NUMBER                ');
-  print('║──────────────────────────────────────────────');
-  Random R = new Random();
-  var ans = R.nextInt(101);
-  stdout.write('║ Guess the number between 1 and 100: ');
-  var user = stdin.readLineSync();
-  var number = int.tryParse(user!);
-  var count = 1;
-  for(;number != ans;){
-    if(number! > ans){
-      print('║ ➜ $number is TOO HIGH! ▲');
-    }else{
-      print('║ ➜ $number is TOO LOW! ▼');
+void main() {
+  const maxRandom = 100;
+  var random = Random();
+  var answer = random.nextInt(maxRandom) + 1;
+  var isCorrect = false;
+  var guessCount = 0;
+
+  print('╔════════════════════════════════════════');
+  print('║            GUESS THE NUMBER            ');
+  print('╟────────────────────────────────────────');
+
+  do {
+    stdout.write('║ Guess the number between 1 and $maxRandom: ');
+    var input = stdin.readLineSync();
+    var guess = int.tryParse(input!);
+    if (guess == null) {
+      continue;
     }
-    stdout.write('║ Guess the number between 1 and 100: ');
-    user = stdin.readLineSync();
-    number = int.tryParse(user!);
-    count++;
-  }
-  print('║ ➜ $number is CORRECT ❤,total guesses: $count');
-  print('║──────────────────────────────────────────────');
-  print('║                  THE END                ');
-  print('╚══════════════════════════════════════════════');
+
+    guessCount++;
+
+    if (guess > answer) {
+      print('║ ➜ $guess is TOO HIGH! ▲');
+      print('╟────────────────────────────────────────');
+    } else if (guess < answer) {
+      print('║ ➜ $guess is TOO LOW! ▼');
+      print('╟────────────────────────────────────────');
+    } else {
+      print('║ ➜ $guess is CORRECT ❤, total guesses: $guessCount');
+      print('╟────────────────────────────────────────');
+      isCorrect = true;
+    }
+  } while (!isCorrect);
+
+  print('║                 THE END                ');
+  print('╚════════════════════════════════════════');
 }
