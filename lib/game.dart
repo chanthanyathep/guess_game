@@ -1,10 +1,9 @@
 import 'dart:math';
 class Game{
-  static const maxrandom = 100;
   int? _answer;
-  int _count = 0;
+  static var myList = <int>[];
 
-  Game(){
+  Game([int maxrandom = 100]){
     var r = Random();
     _answer = r.nextInt(maxrandom + 1);
   }
@@ -19,10 +18,10 @@ class Game{
     }
   }
   void addcount(){
-    this._count++;
+    myList.add(1);
   }
 
   int getcount(){
-    return _count;
+    return myList.length;
   }
 }
